@@ -1,0 +1,2 @@
+traefik_svc_ident: app
+traefik_svc_port: 8080

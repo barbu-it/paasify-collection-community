@@ -1,0 +1,14 @@
+---
+version: "3.7"
+services:
+  paperless:
+    image: lscr.io/linuxserver/paperless-ng:1.5.0
+    environment:
+      - PUID=$app_puid
+      - PGID=$app_pgid
+      - TZ=$app_tz
+      - REDIS_URL= #optional
+    volumes:
+      - $app_dir_conf:/config
+      - $app_dir_data:/data
+    restart: unless-stopped

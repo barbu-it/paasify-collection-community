@@ -1,0 +1,10 @@
+
+services:
+  posio:
+    image: littlestache/posio
+    volumes:
+        - $app_dir_data:/posio
+    environment:
+        - POSIO_SETTINGS=/app/config.py
+          #ports:
+          #    - 5000:5000

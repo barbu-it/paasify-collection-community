@@ -1,0 +1,3 @@
+app_port: 5000
+app_description: 'Fava is a web interface for the double-entry bookkeeping software Beancount with a focus on features and usability.'
+app_demo: https://fava.pythonanywhere.com/example-beancount-file/income_statement/

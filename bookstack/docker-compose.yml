@@ -1,0 +1,60 @@
+---
+version: "3.9"
+
+networks:
+  db:
+
+services:
+  bookstack:
+    image: lscr.io/linuxserver/bookstack:22.11.1
+    environment:
+      - PUID=$app_puid
+      - PGID=$app_pgid
+      - APP_URL=https://$app_fqdn
+        #- APP_URL=$app_prot://$app_fqdn
+      - DB_HOST=mariadb
+      - DB_USER=$app_db_user
+      - DB_PASS=$app_db_pass
+      - DB_DATABASE=$app_db_name
+    volumes:
+      - $app_dir_conf:/config
+
+    networks:
+      db:
+
+  mariadb:
+    image: mariadb:10.6
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=$app_db_name
+      - MYSQL_USER=$app_db_user
+      - MYSQL_PASSWORD=$app_db_pass
+      - MYSQL_ROOT_PASSWORD=$app_admin_pass
+        #- MYSQL_RANDOM_ROOT_PASSWORD=no
+
+        #environment:
+        #  MYSQL_ROOT_PASSWORD: "${app_admin_pass}"
+        #    # MYSQL_ALLOW_EMPTY_ROOT_PASSWORD: yes
+        #  MYSQL_DATABASE: "${app_db_name}"
+        #  MYSQL_USER: "${app_db_user}"
+        #  MYSQL_PASSWORD: "${app_db_pass}"
+
+    networks:
+      db:
+
+
+        #  mysql:
+        #    image: mysql:8
+        #    volumes:
+        #      - $app_dir_db_data:/var/lib/mysql
+        #    environment:
+        #      MYSQL_ROOT_PASSWORD: "${app_admin_pass}"
+        #        # MYSQL_ALLOW_EMPTY_ROOT_PASSWORD: yes
+        #      MYSQL_DATABASE: "${app_db_name}"
+        #      MYSQL_USER: "${app_db_user}"
+        #      MYSQL_PASSWORD: "${app_db_pass}"
+        #
+        #    networks:
+        #      db:
+

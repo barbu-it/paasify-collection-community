@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  app:
+    image: fireflyiii/core:latest
+    restart: always
+    volumes:
+      - $app_dir_data/upload:/var/www/html/storage/upload
+    environment:
+      APP_URL: $app_prot://$app_fqdn
+        #APP_KEY: $app_token
+      TRUSTED_PROXIES: '**'
+    env_file: ./vars.env
+      #ports:
+      #  - 80:8080
+    depends_on:
+      - db
+  db:
+    image: mariadb    
+    hostname: fireflyiiidb
+    restart: always
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+      - MYSQL_USER=firefly
+      - MYSQL_PASSWORD=secret_firefly_password
+      - MYSQL_DATABASE=firefly
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
+
+        #volumes:
+        #   firefly_iii_upload:
+        #   firefly_iii_db:

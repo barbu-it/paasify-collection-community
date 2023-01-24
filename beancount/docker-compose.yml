@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+  fava:
+    image: yegle/fava
+    volumes:
+      - "$app_dir_conf:/bean"
+    environment:
+      # assuming you have a filename.beancount in the current directory 
+      BEANCOUNT_FILE: /bean/filename.beancount

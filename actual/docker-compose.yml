@@ -1,0 +1,12 @@
+version: "3"
+services:
+  actual_server:
+    build:
+      context: $app_dir_template/actual-server
+      dockerfile: Dockerfile
+        #ports:
+        #  - "5006:5006"
+    volumes:
+      - $app_dir_data/server-files:/app/server-files
+      - $app_dir_data/user-files:/app/user-files
+    restart: unless-stopped
