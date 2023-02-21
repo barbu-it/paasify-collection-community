@@ -1,0 +1,15 @@
+services:
+  syncthing:
+    ports:
+    - protocol: udp
+      published: 21027
+      target: 21027
+      host_ip: $app_expose_ip
+    - protocol: tcp
+      published: 22000
+      target: 22000
+      host_ip: $app_expose_ip
+    - protocol: udp
+      published: 22000
+      target: 22000
+      host_ip: $app_expose_ip

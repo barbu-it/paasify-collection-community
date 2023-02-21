@@ -1,0 +1,17 @@
+---
+version: "3.9"
+
+services:
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    hostname: $app_fqdn
+    environment:
+      - TZ=$app_tz
+        # - CLI_ARGS= #optional
+        #- PUID=$app_puid
+        #- PGID=$app_pgid
+    working_dir: /data/
+    volumes:
+      - $app_dir_conf:/config
+      - $app_dir_data:/backups
+      - $app_dir_share:/source

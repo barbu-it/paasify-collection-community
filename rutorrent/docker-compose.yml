@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  rutorrent:
+    image: ghcr.io/linuxserver/rutorrent
+    environment:
+      - PUID=$app_puid
+      - PGID=$app_pgid
+    volumes:
+      - $app_dir_conf:/config
+      - $app_dir_data:/downloads
+        #ports:
+        #  - 5000:5000
+        #  - 51413:51413
+        #  - 6881:6881/udp
+

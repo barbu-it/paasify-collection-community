@@ -1,0 +1,26 @@
+---
+version: "3.9"
+
+services:
+  syncthing:
+    #image: syncthing/syncthing:version-v1.22.2
+    image: lscr.io/linuxserver/syncthing:version-v1.22.2
+      #entrypoint: /usr/bin/syncthing -config=/config -data=/data -no-browser -no-restart --gui-address=0.0.0.0:8384
+    environment:
+      - PUID=$app_puid
+      - PGID=$app_pgid
+      - TZ=$app_tz
+    working_dir: /data/
+    volumes:
+      #- ./patch/run:/etc/services.d/syncthing/run
+      - $app_dir_data:/data:rw
+      - $app_dir_conf:/config
+        #- $app_dir_data:/var/syncthing
+        # - /path/to/data1:/data1
+        # - /path/to/data2:/data2
+        #ports:
+        #  #  - 8384:8384
+        #  - 22000:22000/tcp
+        #  - 22000:22000/udp
+        #  - 21027:21027/udp
+    restart: unless-stopped

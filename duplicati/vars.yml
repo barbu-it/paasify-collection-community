@@ -1,0 +1,2 @@
+traefik_svc_port: "8200"
+app_description: Free backup software to store encrypted backups online for Windows, macOS and Linux

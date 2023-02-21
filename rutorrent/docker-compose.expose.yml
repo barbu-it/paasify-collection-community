@@ -1,0 +1,7 @@
+services:
+  rutorrent:
+    ports:
+      - $app_expose_ip:5000:5000
+      - $app_expose_ip:51413:51413
+      - $app_expose_ip:6881:6881/udp
+

@@ -1,0 +1,19 @@
+networks:
+  db:
+
+services:
+  freshrss:
+    networks:
+      db:
+  db:
+    networks:
+      db:
+    image: mariadb:10.6
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=$app_db_name
+      - MYSQL_USER=$app_db_user
+      - MYSQL_PASSWORD=$app_db_pass
+      - MYSQL_ROOT_PASSWORD=$app_db_admin_pass
+  

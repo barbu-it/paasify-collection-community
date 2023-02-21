@@ -1,0 +1,2 @@
+traefik_svc_port: "80"
+app_description: Photo gallery for self-hosted personal servers

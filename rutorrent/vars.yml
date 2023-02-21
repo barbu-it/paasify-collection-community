@@ -1,0 +1,2 @@
+traefik_svc_port: "80"
+app_description: Rutorrent is a popular rtorrent client with a webui for ease of use

@@ -1,0 +1,4 @@
+traefik_svc_port: "80"
+  #homepage_icon: file-sign
+homepage_icon: mdi-file-tree
+app_description: A modern HTTP web server index for Apache httpd, lighttpd, and nginx

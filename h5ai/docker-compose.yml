@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  h5ai:
+    image: awesometic/h5ai:latest
+    environment:
+      - PUID=$app_puid
+      - PGID=$app_pgid
+      - TZ=$app_tz
+    volumes:
+      - $app_dir_conf:/config:rw
+      - $app_dir_data:/h5ai:ro
+

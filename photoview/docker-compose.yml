@@ -1,0 +1,61 @@
+version: "3.9"
+
+networks:
+  db: 
+
+
+services:
+
+  photoview:
+    image: viktorstrate/photoview:2
+    restart: always
+    networks:
+      db:
+    depends_on:
+      - db
+    environment:
+      - PHOTOVIEW_DATABASE_DRIVER=mysql
+      - PHOTOVIEW_MYSQL_URL=$app_db_user:$app_db_pass@tcp($app_db_host)/$app_db_name
+      - PHOTOVIEW_LISTEN_IP=0.0.0.0
+      - PHOTOVIEW_LISTEN_PORT=80
+      - PHOTOVIEW_MEDIA_CACHE=/app/cache
+      
+      # Optional: If you are using Samba/CIFS-Share and experience problems with "directory not found"
+      # Enable the following Godebug
+      # - GODEBUG=asyncpreemptoff=1
+      
+      
+      # Optional: To enable map related features, you need to create a mapbox token.
+      # A token can be generated for free here https://account.mapbox.com/access-tokens/
+      # It's a good idea to limit the scope of the token to your own domain, to prevent others from using it.
+      # - MAPBOX_TOKEN=<YOUR TOKEN HERE>
+
+    volumes:
+      - $app_dir_cache:/app/cache
+      - $app_dir_data:/photos
+
+      # Change This: to the directory where your photos are located on your server.
+      # If the photos are located at `/home/user/photos`, then change this value
+      # to the following: `/home/user/photos:/photos:ro`.
+      # You can mount multiple paths, if your photos are spread across multiple directories.
+      #- /mnt/jez_archives/BUCKETS:/photos:ro
+
+        #volumes:
+        #  db_data:
+        #  api_cache:
+
+
+
+  db:
+    image: mariadb:10.5
+    restart: always
+    networks:
+      db:
+    environment:
+      - MYSQL_DATABASE=$app_db_name
+      - MYSQL_USER=$app_db_user
+      - MYSQL_PASSWORD=$app_db_pass
+      - MYSQL_RANDOM_ROOT_PASSWORD=1
+      - TZ=$app_tz
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
