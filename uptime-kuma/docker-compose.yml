@@ -1,6 +1,0 @@
-version: "3.8"
-services:
-  whoami:
-    image: louislam/uptime-kuma:1
-    volumes:
-      - $app_dir_data:/app/data
