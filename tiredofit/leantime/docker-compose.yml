@@ -1,0 +1,57 @@
+version: '3.3'
+
+networks:
+  db:
+
+services:
+
+  leantime:
+    image: tiredofit/leantime
+    restart: unless-stopped
+    networks:
+      db:
+    environment:
+
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASS: admin
+
+      SITE_URL: $app_prot://$app_fqdn
+
+      DB_HOST: mysql
+      DB_NAME: $app_db_name
+      DB_USER: $app_db_user
+      DB_PASS: $app_db_passwd
+
+      # STORAGE_TYPE=S3
+      # S3_BUCKET
+      #
+      # SMTP_ENABLE=false
+
+    volumes:
+
+      - $app_dir_data:/data
+      - $app_dir_logs:/www/logs
+      # /assets/custom-scripts
+      # /assets/modules
+      # /www/html
+      # /data
+
+    depends_on:
+      - mysql                                                     # Don't start Leantime unless leantime_db is running
+
+
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    command: --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
+        # Future - $app_dir_db_conf:/etc/mysql/conf.d/
+    environment:
+      - MYSQL_DATABASE=$app_db_name
+      - MYSQL_USER=$app_db_user
+      - MYSQL_PASSWORD=$app_db_passwd
+      - MYSQL_ROOT_PASSWORD=$app_admin_passwd
+    networks:
+      db:
+
