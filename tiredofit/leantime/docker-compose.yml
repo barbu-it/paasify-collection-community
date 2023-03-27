@@ -6,21 +6,24 @@ networks:
 services:
 
   leantime:
-    image: tiredofit/leantime
+    #image: tiredofit/leantime:1.0.21
+    #image: tiredofit/leantime:1.0.20
+    image: tiredofit/leantime:1.0.12
     restart: unless-stopped
     networks:
       db:
     environment:
 
-      ADMIN_EMAIL: admin@example.com
-      ADMIN_PASS: admin
+      ADMIN_EMAIL: $app_admin_email
+      ADMIN_PASS: $app_admin_pass
 
       SITE_URL: $app_prot://$app_fqdn
+        #TIMEZONE: $app_tz
 
       DB_HOST: mysql
       DB_NAME: $app_db_name
       DB_USER: $app_db_user
-      DB_PASS: $app_db_passwd
+      DB_PASS: $app_db_pass
 
       # STORAGE_TYPE=S3
       # S3_BUCKET
@@ -50,8 +53,8 @@ services:
     environment:
       - MYSQL_DATABASE=$app_db_name
       - MYSQL_USER=$app_db_user
-      - MYSQL_PASSWORD=$app_db_passwd
-      - MYSQL_ROOT_PASSWORD=$app_admin_passwd
+      - MYSQL_PASSWORD=$app_db_pass
+      - MYSQL_ROOT_PASSWORD=$app_admin_pass
     networks:
       db:
 

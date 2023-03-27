@@ -1,0 +1,43 @@
+---
+
+networks:
+  db: {}
+
+services:
+  web:
+    image: tuxgasy/dolibarr:14
+    environment:
+
+      DOLI_URL_ROOT: http://0.0.0.0
+      PHP_INI_DATE_TIMEZONE: $app_tz
+      TZ: $app_tz
+
+      DOLI_DB_HOST: mariadb
+      DOLI_DB_NAME: ${app_db_name}
+      DOLI_DB_USER: ${app_db_user}
+      DOLI_DB_PASSWORD: ${app_db_pass}
+
+    networks:
+      db: {}
+    volumes:
+    - $app_dir_data/documents:/var/www/documents:rw
+    - $app_dir_conf:/var/www/html/conf:rw
+    - $app_dir_data/custom:/var/www/html/custom:rw
+      # - $app_dir_conf/patchs/pdf_sponge_date.modules.php:/var/www/html/core/modules/facture/doc/pdf_sponge_date.modules.php:rw
+
+  # Replace by db eventually ...
+  mariadb:
+    image: mariadb:10.5.12
+    environment:
+      MYSQL_ROOT_PASSWORD: "${app_db_admin_pass}"
+      MYSQL_DATABASE: "${app_db_name}"
+      MYSQL_USER: "${app_db_user}"
+      MYSQL_PASSWORD: "${app_db_pass}"
+    networks:
+      db: {}
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
+
+    networks:
+      db:
+

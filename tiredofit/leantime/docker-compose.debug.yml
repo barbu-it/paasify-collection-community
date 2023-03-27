@@ -1,0 +1,7 @@
+
+
+services:
+
+  leantime:
+    environment:
+      APP_DEBUG: True
