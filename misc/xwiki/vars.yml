@@ -1,0 +1,3 @@
+app_port: 8080
+#traefik_svc_port: 3000
+app_description: XWiki is a light and powerful development platform that allows you to customize the wiki to your specific needs

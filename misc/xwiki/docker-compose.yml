@@ -1,0 +1,36 @@
+---
+# See: https://github.com/xwiki/xwiki-docker/blob/master/README.md#using-docker-compose
+
+version: "3.9"
+
+networks:
+  db:
+
+services:
+  xwiki:
+    image: "xwiki:14-mariadb-tomcat"
+      #ports:
+      #  - "8080:8080"
+    environment:
+      - DB_USER=$app_db_user
+      - DB_PASSWORD=$app_db_pass
+      - DB_HOST=mariadb
+    volumes:
+      - $app_dir_data:/usr/local/xwiki
+    networks:
+      db:
+
+  mariadb:
+    image: "mariadb:10.5"
+    volumes:
+      - $app_dir_db_data:/var/lib/mysql
+        # Future - $app_dir_db_conf:/etc/mysql/conf.d/
+      - $app_dir_template/patch/xwiki.cnf:/etc/mysql/conf.d/xwiki.cnf
+      - $app_dir_template/patch/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_DATABASE=$app_db_name
+      - MYSQL_USER=$app_db_user
+      - MYSQL_PASSWORD=$app_db_pass
+      - MYSQL_ROOT_PASSWORD=$app_admin_pass
+    networks:
+      db:
