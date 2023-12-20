@@ -1,0 +1,7 @@
+version: "3"
+services:
+  tabula:
+    image: mtaylor/tabula-docker
+      #volumes:
+      #  - $app_dir_template/build/:/app
+      #  - $app_dir_data:/usr/local/bundle
