@@ -1,0 +1,18 @@
+information:
+  author:
+  email:
+  date:
+  project_license:
+  project_url:
+
+docs:
+
+vars:
+
+apps:
+  - "*:*/*" # default:fallback if no matches ?
+  - ~*/actual
+
+changelogs:
+
+
