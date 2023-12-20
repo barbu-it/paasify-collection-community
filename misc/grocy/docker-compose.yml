@@ -1,0 +1,11 @@
+version: "2.1"
+services:
+  grocy:
+    image: lscr.io/linuxserver/grocy:latest
+    container_name: grocy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=$app_tz
+    volumes:
+      - $app_dir_conf:/config
