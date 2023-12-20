@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  borgbackup:
+    image: pschiffe/borg
+    command: >
+      borg serve 
+      --restrict-to-path /borg/repo 
+      --progress 
+    volumes:
+      - $app_dir_conf:/root:rw
+      - $app_dir_data:/borg/repo:rw
+
+        #  -v borg-config:/root \
+        #  -v borg-repo:/borg/repo \
+        #
+        #  -v /etc:/borg/data/etc:ro \
+        #  -v /home:/borg/data/home:ro \
+
+
+        #    -e BORG_REPO=/borg/repo \
+        #  -e BORG_PASSPHRASE=my-secret-pw \
+        #  -e BACKUP_DIRS=/borg/data \
+        #  -e EXCLUDE='*/.cache*;*.tmp;/borg/data/etc/shadow' \
+        #  -e COMPRESSION=lz4 \
+        #  -e PRUNE=1 \
+
