@@ -1,2 +1,7 @@
+app_image_name: viktorstrate/photoview
+app_image_version: latest
+
 traefik_svc_port: "80"
 app_description: Photo gallery for self-hosted personal servers
+
+app_token_mapbox: ''

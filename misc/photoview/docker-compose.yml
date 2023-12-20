@@ -7,7 +7,7 @@ networks:
 services:
 
   photoview:
-    image: viktorstrate/photoview:2
+    image: ${app_image:-${app_image_name}:${app_image_version}}
     restart: always
     networks:
       db:
@@ -19,6 +19,7 @@ services:
       - PHOTOVIEW_LISTEN_IP=0.0.0.0
       - PHOTOVIEW_LISTEN_PORT=80
       - PHOTOVIEW_MEDIA_CACHE=/app/cache
+      - MAPBOX_TOKEN=$app_token_mapbox
       
       # Optional: If you are using Samba/CIFS-Share and experience problems with "directory not found"
       # Enable the following Godebug
